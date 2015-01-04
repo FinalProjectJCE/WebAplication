@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LoginPage.aspx.cs" Inherits="WebAppWN.LoginPage"%>
+
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -26,19 +28,29 @@
       <div class="modal-body">
           <form class="form col-md-12 center-block">
             <div class="form-group">
-              <input type="text" class="form-control input-lg text-right" placeholder="מזהה סניף">
+              <input type="text" class="form-control input-lg text-right" ID="OfficeLogin" placeholder="מזהה סניף">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control input-lg text-right" placeholder="סיסמא">
+              <input type="password" class="form-control input-lg text-right" ID="PassLogin" placeholder="סיסמא">
             </div>
-            <div class="form-group">
+       
+            <div class="form-group">  
                 
-              <button OnClick="Button1_Click" ID="loginButton" class="btn btn-primary btn-lg btn-block">Sign In</button>
+                <!--<button OnClick="Button1_Click" runat="server" ID="loginButton1111" class="btn btn-primary btn-lg btn-block">התחבר</button>-->
+                <div>
+                <form id="formi" runat="server">
+                    <asp:LinkButton CssClass="btn btn-primary btn-large btn-block" runat="server" OnClick="Button1_Click" ID="loginButton1">התחבר</asp:LinkButton>
+                </form>
+                </div>
+                    <div style="text-align:center">
+                      <asp:Label runat="server" Visible="false" ID="ErrorLabel" Text="מספר הזהות שגוי או שאינו קיים במערכת" ForeColor="Red"></asp:Label>
+                </div>
                 <!--
               <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
                 -->
             </div>
           </form>
+                    
       </div>
       <div class="modal-footer">
           <div class="col-md-12">

@@ -12,6 +12,15 @@ namespace WebAppWN
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            Response.Write("LLLLLLL");
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Write("LLLLLLL");
+            Response.Redirect("MainPage.aspx");
+        }
+
+
     }
 }
