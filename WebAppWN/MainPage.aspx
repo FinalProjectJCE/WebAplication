@@ -11,8 +11,12 @@
     <form id="form1" runat="server">
     <div id="displayText">
    <h1> : לקוח מספר</h1>
-        <asp:Label runat="server" ID="clientNum"></asp:Label>
-    </div>
+        <h1><%=Session["LN"]%></h1>
+        <br />
+        <asp:ImageButton ID="ImageButton1" runat="server" Height="194px" ImageUrl="~/img/ArrowButtonImg.png" OnClick="ImageButton1_Click" />
+        <br />
+        <br />
+        לחץ על הכתפור על מנת להעביר תור תור</div>
     </form>
 </body>
 </html>

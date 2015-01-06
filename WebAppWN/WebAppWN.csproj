@@ -71,6 +71,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="img\ArrowButtonImg.png" />
     <Content Include="img\background.jpg" />
     <Content Include="MainPage.aspx" />
     <Content Include="Scripts\bootstrap.js" />
