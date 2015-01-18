@@ -15,7 +15,7 @@ namespace WebAppWN
         {
            // clientNum.Text = LineNum.ToString();
             //Response.Write("1 ");
-            Session["LN"] = LineNum;   
+            Session["LN"] = LineNum;    
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)

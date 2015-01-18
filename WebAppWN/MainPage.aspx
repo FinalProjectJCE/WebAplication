@@ -16,7 +16,7 @@
         <asp:ImageButton ID="ImageButton1" runat="server" Height="194px" ImageUrl="~/img/ArrowButtonImg.png" OnClick="ImageButton1_Click" />
         <br />
         <br />
-        לחץ על הכתפור על מנת להעביר תור תור</div>
+        לחץ על הכתפור על מנת לקדם תור</div>
     </form>
 </body>
 </html>
