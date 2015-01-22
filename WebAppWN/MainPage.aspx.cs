@@ -20,6 +20,11 @@ namespace WebAppWN
         {
             new DbDAL().IncreaseCurr();
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            new DbDAL().resetCurr();
+        }
         
         
     }

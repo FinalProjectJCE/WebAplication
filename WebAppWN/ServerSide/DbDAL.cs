@@ -51,5 +51,14 @@ namespace WebAppWN
             conn.Close();
             return curr;
         }
+        public void resetCurr()
+        {
+            conn.Open();
+            string query =
+                "UPDATE Queue SET CurrentQueue = 0 WHERE BusinessId = '111'";
+            cmd = new MySqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
     }
 }
