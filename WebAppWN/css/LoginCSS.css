@@ -9,6 +9,7 @@
    
 }
 #Header {
+    
     border-radius: 10px;
     border: solid 2px #909090;
     background: #FFF;
@@ -16,12 +17,14 @@
 }
 #mainContain
 {
+    
     margin-left:auto;
     margin-right:auto;
     width:25%;
 }
 .mainLogin 
 {   
+
     margin-left: auto;
     margin-right: auto;
 }
@@ -35,12 +38,13 @@ box-sizing: border-box;
 }
 body {
 font-family: Arial;
-background-color: #909090;
+background-color:lightgray;
 padding: 50px;
 }
 .login {
 margin: 20px auto;
-width: 300px;
+width: 481px;
+    height: 305px;
 }
 .login-screen {
 background-color: #FFF;
