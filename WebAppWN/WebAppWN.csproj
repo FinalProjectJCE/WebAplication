@@ -114,6 +114,8 @@
       <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerSide\GeneralMethods.cs" />
+    <Compile Include="ServerSide\UsersDAL.cs" />
     <Compile Include="TempLogin.aspx.cs">
       <DependentUpon>TempLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
