@@ -13,31 +13,40 @@ namespace WebAppWN {
     public partial class LoginPage {
         
         /// <summary>
-        /// loginButton1111 control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton loginButton1111;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// formi control.
+        /// userNameLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm formi;
+        protected global::System.Web.UI.WebControls.TextBox userNameLogin;
         
         /// <summary>
-        /// loginButton1 control.
+        /// passwordLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton loginButton1;
+        protected global::System.Web.UI.WebControls.TextBox passwordLogin;
+        
+        /// <summary>
+        /// loginButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton loginButton;
         
         /// <summary>
         /// ErrorLabel control.

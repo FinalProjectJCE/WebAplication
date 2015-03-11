@@ -33,7 +33,7 @@ namespace WebAppWN
         {
             conn.Open();
             string query =
-                "UPDATE Queue SET CurrentQueue = CurrentQueue + 1 WHERE BusinessId = '111'";
+                "UPDATE Queue SET CurrentQueue = CurrentQueue + 1 WHERE BusinessId = '" + LoginPage.businessID + "'";
             cmd = new MySqlCommand(query, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
@@ -42,7 +42,8 @@ namespace WebAppWN
         {
             conn.Open();
             string query =
-                "SELECT CurrentQueue FROM Queue WHERE BusinessId = '111' ";
+                "SELECT CurrentQueue FROM Queue WHERE BusinessId = '" + LoginPage.businessID + "'";
+            
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
             rdr.Read();
@@ -55,10 +56,25 @@ namespace WebAppWN
         {
             conn.Open();
             string query =
-                "UPDATE Queue SET CurrentQueue = 0 WHERE BusinessId = '111'";
+                "UPDATE Queue SET CurrentQueue = 0 WHERE BusinessId = '" + LoginPage.businessID + "'"; 
             cmd = new MySqlCommand(query, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
         }
+
+        public string getName()
+        {
+            conn.Open();
+            string query =
+                "SELECT City FROM Queue WHERE BusinessId = '" + LoginPage.businessID + "'";
+            cmd = new MySqlCommand(query, conn);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            rdr.Read();
+            string curr = rdr[0].ToString();
+            rdr.Close();
+            conn.Close();
+            return curr;
+        }
+
     }
 }

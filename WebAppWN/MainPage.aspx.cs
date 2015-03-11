@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace WebAppWN
 {
     public partial class MainPage : System.Web.UI.Page
@@ -13,7 +14,7 @@ namespace WebAppWN
         
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+            Console.WriteLine(LoginPage.businessID);
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
