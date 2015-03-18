@@ -35,8 +35,8 @@ namespace WebAppWN
                     ErrorLabel.Visible = true;
                 }
                 else
-                    //Response.Write(businessID);
-                    
+                    Response.Write(businessID);
+                    Session["business"]= businessID;
                     Response.Redirect("MainPage.aspx");
             }
         }

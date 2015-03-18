@@ -10,8 +10,9 @@
 <body style="background-image:url(img/background.jpg); background-size:cover;">
     <form id="form1" runat="server">
     <div id="displayText">
+        <asp:Label runat="server" Visible="false" ID="SessionLabel" Text="Haliji" ForeColor="Red"></asp:Label>
    <h1> : לקוח מספר</h1>
-        <%int curr=new WebAppWN.DbDAL().getCurr(); %>
+        <%int curr=new WebAppWN.DbDAL().getCurr(Convert.ToInt16( Session["business"])); %>
         <h1><%=curr %></h1>
         <br />
         <asp:ImageButton ID="ImageButton1" runat="server" Height="194px" ImageUrl="~/img/ArrowButtonImg.png" OnClick="ImageButton1_Click" />

@@ -14,12 +14,19 @@ namespace WebAppWN
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["business"] != null)
+            {
+                SessionLabel.Text = Session["business"].ToString();
+                SessionLabel.Visible = true;
+            }
+            else
+                Response.Redirect("LoginPage.aspx");
             Console.WriteLine(LoginPage.businessID);
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
         {
-            new DbDAL().IncreaseCurr();
+            new DbDAL().IncreaseCurr(Convert.ToInt16( Session["business"]));
         }
 
         protected void Button1_Click(object sender, EventArgs e)

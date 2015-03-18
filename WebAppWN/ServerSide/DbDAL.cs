@@ -29,20 +29,20 @@ namespace WebAppWN
             }
         }
         
-        public void IncreaseCurr()
+        public void IncreaseCurr(int businessID)
         {
             conn.Open();
             string query =
-                "UPDATE Queue SET CurrentQueue = CurrentQueue + 1 WHERE BusinessId = '" + LoginPage.businessID + "'";
+                "UPDATE Queue SET CurrentQueue = CurrentQueue + 1 WHERE BusinessId = '" + businessID + "'";
             cmd = new MySqlCommand(query, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
         }
-        public int getCurr()
+        public int getCurr(int businessID)
         {
             conn.Open();
             string query =
-                "SELECT CurrentQueue FROM Queue WHERE BusinessId = '" + LoginPage.businessID + "'";
+                "SELECT CurrentQueue FROM Queue WHERE BusinessId = '" + businessID + "'";
             
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
