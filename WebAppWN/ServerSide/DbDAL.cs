@@ -42,7 +42,7 @@ namespace WebAppWN
         {
             conn.Open();
             string query =
-                "SELECT CurrentQueue FROM Queue WHERE BusinessId = '" + businessID + "'";
+                "SELECT CurrentQueue FROM Queue WHERE BusinessId = '" + businessID + "'"; 	
             
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
@@ -74,6 +74,28 @@ namespace WebAppWN
             rdr.Close();
             conn.Close();
             return curr;
+        }
+
+// Checks If The There Is No One Waiting In Line, If So, Return True 
+        public bool noOneInQueue()
+        {
+            bool toReturn;
+            conn.Open();
+            string query =
+                "SELECT CurrentQueue , TotalQueue FROM Queue WHERE BusinessId = '" + LoginPage.businessID + "'";
+            cmd = new MySqlCommand(query, conn);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            rdr.Read();
+            int currentQueue=rdr.GetInt32(0);
+            int totalQueue = rdr.GetInt32(1);
+        
+            if (currentQueue > totalQueue || totalQueue == 0)
+                toReturn = true;
+            else
+                toReturn = false;
+            rdr.Close();
+            conn.Close();
+            return toReturn ;
         }
 
     }

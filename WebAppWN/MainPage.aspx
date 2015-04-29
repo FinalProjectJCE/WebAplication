@@ -17,6 +17,16 @@
         <br />
         <asp:ImageButton ID="ImageButton1" runat="server" Height="194px" ImageUrl="~/img/ArrowButtonImg.png" OnClick="ImageButton1_Click" />
         <br />
+            <%bool dis=new WebAppWN.DbDAL().noOneInQueue();
+              if (dis) 
+              {%>
+              <h1>אין אף לקוח בתור</h1>
+              <%}
+                else
+                { %>
+            <h1>יש לקוחות</h1>
+                <%}
+                   %>
         <br />
         לחץ על הכתפור על מנת לקדם תור</div>
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
