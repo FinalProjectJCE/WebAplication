@@ -64,16 +64,20 @@ namespace WebAppWN
 
         public string getName()
         {
+            string toReturn;
             conn.Open();
             string query =
-                "SELECT City FROM Queue WHERE BusinessId = '" + LoginPage.businessID + "'";
+                "SELECT BusinessName,City,Branch FROM Queue WHERE BusinessId = '" + LoginPage.businessID + "'";
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
             rdr.Read();
-            string curr = rdr[0].ToString();
+            string businessName = rdr[0].ToString();
+            string city = rdr[1].ToString();
+            string branch = rdr[2].ToString();
+            toReturn = businessName + "  סניף " + branch + ", " + city;
             rdr.Close();
             conn.Close();
-            return curr;
+            return toReturn;
         }
 
 // Checks If The There Is No One Waiting In Line, If So, Return True 
@@ -97,6 +101,56 @@ namespace WebAppWN
             conn.Close();
             return toReturn ;
         }
+
+        public int getTreatedClients(int businessID)
+        {
+            conn.Open();
+            string query =
+                "SELECT TreatedClients FROM Queue WHERE BusinessId = '" + businessID + "'";
+
+            cmd = new MySqlCommand(query, conn);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            rdr.Read();
+            int treatedClients = rdr.GetInt32(0);
+            rdr.Close();
+            conn.Close();
+            return treatedClients;
+        }
+
+        public void IncreaseTreatedClients(int businessID)
+        {
+            conn.Open();
+            string query =
+                "UPDATE Queue SET TreatedClients = TreatedClients + 1 WHERE BusinessId = '" + businessID + "'";
+            cmd = new MySqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public TimeSpan getAverageTime(int businessID)
+        {
+            conn.Open();
+            string query =
+                "SELECT AverageTime FROM Queue WHERE BusinessId = '" + businessID + "'";
+
+            cmd = new MySqlCommand(query, conn);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            rdr.Read();
+            TimeSpan averageTime = rdr.GetTimeSpan(0);
+            rdr.Close();
+            conn.Close();
+            return averageTime;
+        }
+        public void updateAverage(TimeSpan currentAverage)
+        {
+            conn.Open();
+            string query =
+                "UPDATE Queue SET AverageTime = '" + currentAverage + "' WHERE BusinessId = '" + LoginPage.businessID + "'"; 
+            cmd = new MySqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
 
     }
 }

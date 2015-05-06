@@ -76,6 +76,8 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="img\ArrowButtonImg.png" />
     <Content Include="img\background.jpg" />
+    <Content Include="img\Delete.png" />
+    <Content Include="img\StopImgForButton.png" />
     <Content Include="MainPage.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

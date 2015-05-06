@@ -9,18 +9,11 @@ namespace WebAppWN
     {
         private DateTime  receiveClientTime;
         private DateTime releaseClientTime;
-        private DateTime delete;
-        private TimeSpan  avarage;
-        int c = 0;
-        int lastNumOfClients = 0;
 
         public void setTime(DateTime clientTime , int numOfClients)
         {
-            c++; 
-
             if (receiveClientTime == DateTime.MinValue)
-            {
-                
+            {              
                 receiveClientTime = clientTime;
                 System.Diagnostics.Debug.WriteLine("receiveClientTime is = " + receiveClientTime);
             }
@@ -31,59 +24,31 @@ namespace WebAppWN
                 System.Diagnostics.Debug.WriteLine("releaseClientTime = " + releaseClientTime);
                 setAvarage(numOfClients);
             }
-            else if (receiveClientTime != DateTime.MinValue && releaseClientTime != DateTime.MinValue)
-            {
-                System.Diagnostics.Debug.WriteLine("Final Set");
-                receiveClientTime = releaseClientTime;
-                releaseClientTime = clientTime;
-                System.Diagnostics.Debug.WriteLine("receiveClientTime is = " + receiveClientTime);
-                System.Diagnostics.Debug.WriteLine("releaseClientTime = " + releaseClientTime);
-
-                setAvarage(numOfClients);
-            }
         }
 
         public void setAvarage(int numOfClients) 
         {
-        //    System.Diagnostics.Debug.WriteLine("Set Avarage");
-          //  avarage = releaseClientTime.Ticks - receiveClientTime.Ticks;
-            //TimeSpan elapsedSpan = new TimeSpan(avarage);
+            TimeSpan currentQueueAverage = releaseClientTime.Subtract(receiveClientTime); // The Time Took For This Line
+            int busId = numOfClients;
+            System.Diagnostics.Debug.WriteLine("Business Id Is:  = " + numOfClients);
 
-            TimeSpan span = releaseClientTime.Subtract(receiveClientTime);
-            
-            System.Diagnostics.Debug.WriteLine("minutes are : = " + span.Minutes);
-            System.Diagnostics.Debug.WriteLine("Seconds are are : = " + span.Seconds);
-            System.Diagnostics.Debug.WriteLine("Total Seconds are are : = " + span.Seconds);
-            if (numOfClients == 1)
-            {
-                avarage = span;
-                System.Diagnostics.Debug.WriteLine("Avarage Is = " + avarage + "Number Of Clients : "+numOfClients);
+            int treatedClients = new WebAppWN.DbDAL().getTreatedClients(busId); // The Treated Clients
+            System.Diagnostics.Debug.WriteLine("Treated Clients = " + treatedClients);
 
-                lastNumOfClients = 1;
-            }
-            else
-            {
-                
-                
-               // avarage = new TimeSpan(0,7,30);
-                System.Diagnostics.Debug.WriteLine("Last Avarage Is = " + avarage);
-                System.Diagnostics.Debug.WriteLine("Last Num Of Clients Is = " + lastNumOfClients);
+            TimeSpan averageFromDB = new WebAppWN.DbDAL().getAverageTime(busId); // The Average Time From DB
+            System.Diagnostics.Debug.WriteLine("Average From DB IS: Hours = " + averageFromDB.Hours);
+            System.Diagnostics.Debug.WriteLine("Average From DB IS: Minutes = " + averageFromDB.Minutes);
+            System.Diagnostics.Debug.WriteLine("Average From DB IS: Seconds = " + averageFromDB.Seconds);
 
-                avarage = TimeSpan.FromTicks(avarage.Ticks*lastNumOfClients);
-                System.Diagnostics.Debug.WriteLine("Last Avarage After Multiply By The Last Num Of Clients = " + avarage);
-                avarage= avarage.Add(span);
-                System.Diagnostics.Debug.WriteLine("Last Avarage After Add New Avarage Is = " + avarage);
-
-                avarage = TimeSpan.FromTicks(avarage.Ticks / numOfClients);
-                System.Diagnostics.Debug.WriteLine("Num Of Clients Is = " + numOfClients);
-
-                System.Diagnostics.Debug.WriteLine("Division By Num Of Clients= " + avarage);
-                System.Diagnostics.Debug.WriteLine("#########################################################3");
-
-                lastNumOfClients = numOfClients;
-   
-                
-            }
+            TimeSpan totalAverage = TimeSpan.FromTicks(averageFromDB.Ticks * treatedClients); // The Average Time From DB * Treated Clients -> (If Treated Clients=0 So It Will Be The First Average)
+            System.Diagnostics.Debug.WriteLine("Average From DB After Multiply IS: Hours = " + totalAverage.Hours);
+            System.Diagnostics.Debug.WriteLine("Average From DB After Multiply: Minutes = " + totalAverage.Minutes);
+            System.Diagnostics.Debug.WriteLine("Average From DB After Multiply: Seconds = " + totalAverage.Seconds);
+            totalAverage = totalAverage.Add(currentQueueAverage);
+            totalAverage = TimeSpan.FromTicks(totalAverage.Ticks / (treatedClients + 1));
+            new WebAppWN.DbDAL().updateAverage(totalAverage); // Update The Average On DB
+            System.Diagnostics.Debug.WriteLine("Division By Num Of Clients= " + totalAverage);
+            new WebAppWN.DbDAL().IncreaseTreatedClients(busId); // Increase Treated Clients On DB
         }
 
         public void setClientTimes() 
@@ -91,8 +56,5 @@ namespace WebAppWN
             this.receiveClientTime = DateTime.MinValue;
             this.releaseClientTime = DateTime.MinValue;
         }
-
-
-
     }
 }
