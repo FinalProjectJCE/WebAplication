@@ -10,82 +10,70 @@ namespace WebAppWN
 {
     public partial class MainPage : System.Web.UI.Page
     {
-        static int flagForQueue = 0;
-        static AverageCalculate ac = new AverageCalculate();
-        static DbDAL dbd = new DbDAL();
-        static bool start = true;
-        static int lastLine;
-        static bool servingClient = false;
-       
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("On Page Load");
             if (Session["business"] != null)
             {
-                if (!servingClient) // If Not Serving Any Client Always Show The Current Queue Number
+                SessionLabel.Text= new DbDAL().getName((int)Session["business"]);
+
+                if (!(bool)Session["servingClient"]) // If Not Serving Any Client Always Show The Current Queue Number
                 {
-                    System.Diagnostics.Debug.WriteLine("On Session");
                     setLabels();               
                 }
                 else
                 {
-                    QUEUE.Text = lastLine.ToString(); // If Serving A Client,, Show His Number
+                    QUEUE.Text = Session["LastLine"].ToString(); // If Serving A Client,, Show His Number
                     this.ImageButton1.ImageUrl = "img/StopImgForButton.png";
                     StartAndStopLabel.Text = "סיים טיפול בלקוח";
                 }
             }
             else
-                Response.Redirect("LoginPage.aspx");
-
-            System.Diagnostics.Debug.WriteLine("After Else");
-            Console.WriteLine(LoginPage.businessID);
+                Response.Redirect("LoginPage.aspx",false);
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("On Button Clicked");
 
-            if (!(new WebAppWN.DbDAL().noOneInQueue()))
+            if (!(new DbDAL().noOneInQueue((int)Session["business"])))
             // There Are Clients Waiting And The Clerck Is Not Giving Any Service
             {
-                if(!servingClient){
-                servingClient = true;
+                if (!(bool)Session["servingClient"])
+                {
+                Session["servingClient"] = true;
                 this.ImageButton1.ImageUrl = "img/StopImgForButton.png";
-                lastLine=dbd.getCurr(Convert.ToInt16(Session["business"]));
-                dbd.IncreaseCurr(Convert.ToInt16(Session["business"]));
-                ac.setTime(DateTime.Now, Convert.ToInt16(Session["business"]));
+                Session["LastLine"]  = new DbDAL().getCurr((int)Session["business"]);
+                new DbDAL().IncreaseCurr((int)Session["business"]);
+                Session["receiveClientTime"] = DateTime.Now;                
                 hasOneInQueue.Text = "";
                 StartAndStopLabel.Text = "סיים טיפול בלקוח";
                 }
                 else
                 {
-                ac.setTime(DateTime.Now, Convert.ToInt16(Session["business"]));             
-                this.ImageButton1.ImageUrl = "img/ArrowButtonImg.png";
-                int i = dbd.getCurr(Convert.ToInt16(Session["business"]));
-                QUEUE.Text = i.ToString();
-                ac.setClientTimes();
-                setLabels();
-                start = true;
-                servingClient = false;
+                    AverageCalculate ac = new AverageCalculate();
+                    Session["releaseClientTime"] = DateTime.Now;
+                    ac.setTime((DateTime)Session["receiveClientTime"], (DateTime)Session["releaseClientTime"], (int)Session["business"]);
+                    this.ImageButton1.ImageUrl = "img/ArrowButtonImg.png";
+                    int getCurrLine = new DbDAL().getCurr((int)Session["business"]);
+                    QUEUE.Text = getCurrLine.ToString();
+                    //ac.setClientTimes();
+                    setLabels();
+                    Session["servingClient"] = false;
                 }
             }   
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            new DbDAL().resetCurr();
+            new DbDAL().resetCurr((int)Session["business"]);
         }
 
         public void setLabels() 
         {
-            System.Diagnostics.Debug.WriteLine("On Session");
-            DbDAL dbd = new DbDAL();
-            int i = dbd.getCurr(Convert.ToInt16(Session["business"]));
-            QUEUE.Text = i.ToString();
-            SessionLabel.Text = dbd.getName();
-            if (dbd.noOneInQueue()) // If No One Is Waiting
+            int getCurrLine = new DbDAL().getCurr((int)Session["business"]);
+            QUEUE.Text = getCurrLine.ToString();
+            SessionLabel.Text = new DbDAL().getName((int)Session["business"]);
+            if (new DbDAL().noOneInQueue((int)Session["business"])) // If No One Is Waiting
             {
                 hasOneInQueue.Text = "אין לקוחות ממתינים";
                 StartAndStopLabel.Text = "";

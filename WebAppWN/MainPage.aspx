@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MainPage.aspx.cs" Inherits="WebAppWN.MainPage" %>
-<meta http-equiv="refresh" content="5" />
+<meta http-equiv="refresh" content="15" />
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

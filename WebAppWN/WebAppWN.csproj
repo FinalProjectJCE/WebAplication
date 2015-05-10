@@ -76,7 +76,6 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="img\ArrowButtonImg.png" />
     <Content Include="img\background.jpg" />
-    <Content Include="img\Delete.png" />
     <Content Include="img\StopImgForButton.png" />
     <Content Include="MainPage.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -100,7 +99,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AverageCalculate.cs" />
-    <Compile Include="ServerSide\DbDAL.cs" />
+    <Compile Include="ServerSide\DatabaseConstants.cs" />
+    <Compile Include="ServerSide\DbDAL.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="MainPage.aspx.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -109,7 +111,6 @@
       <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerSide\GeneralMethods.cs" />
     <Compile Include="ServerSide\UsersDAL.cs" />
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>

@@ -13,13 +13,7 @@ namespace WebAppWN.ServerSide
         private MySqlCommand cmd = null;
         public UsersDAL()
         {
-            /*
-            sb = new MySqlConnectionStringBuilder();
-            sb.Server = GeneralMethods.getSbServer();
-            sb.UserID = GeneralMethods.getSbUserID();
-            sb.Password = GeneralMethods.getSbPassword();
-            sb.Database = GeneralMethods.getSbDataBase();
-             * */
+            
             sb = new MySqlConnectionStringBuilder();
             sb.Server = "f37fa280-507d-4166-b70e-a427013f0c94.mysql.sequelizer.com";
             sb.UserID = "lewtprebbcrycgkb";
@@ -39,7 +33,7 @@ namespace WebAppWN.ServerSide
             int businessId=0;
             conn.Open();
             string query =
-                "select businessID from Users where Users.userName = '" + userName + "' and Users.userPassword = '" + userPassword + "'";
+                "select businessID from Users where userName = '" + userName + "' and userPassword = '" + userPassword + "'";
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
             

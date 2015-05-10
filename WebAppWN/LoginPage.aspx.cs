@@ -11,7 +11,7 @@ namespace WebAppWN
     
     public partial class LoginPage : System.Web.UI.Page
     {
-        public static int businessID;
+        public int businessID;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -36,8 +36,15 @@ namespace WebAppWN
                 }
                 else
                     Response.Write(businessID);
-                    Session["business"]= businessID;
-                    Response.Redirect("MainPage.aspx");
+                    //Session["business"]= businessID;
+                    Session.Add("business", businessID);
+                    Session["servingClient"] = false;
+                    AverageCalculate ac = new AverageCalculate();
+                    Session["Average"] = ac;
+                    HttpContext.Current.Session["ac"] = ac;
+                    System.Diagnostics.Debug.WriteLine(Session.SessionID);
+
+                    Response.Redirect("MainPage.aspx",false);
             }
         }
     }

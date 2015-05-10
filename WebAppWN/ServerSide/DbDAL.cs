@@ -1,19 +1,23 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
+using WebAppWN.ServerSide;
 
 namespace WebAppWN
 {
-    public class DbDAL
+    public class DbDAL:MainPage
     {
         private MySqlConnection conn = null;
         private MySqlConnectionStringBuilder sb = null;
         private MySqlCommand cmd = null;
+        private DatabaseConstants dbc;
 
         public DbDAL()
         {
+            //dbc = new DatabaseConstants();
             sb = new MySqlConnectionStringBuilder();
             sb.Server = "f37fa280-507d-4166-b70e-a427013f0c94.mysql.sequelizer.com";
             sb.UserID = "lewtprebbcrycgkb";
@@ -31,6 +35,7 @@ namespace WebAppWN
         
         public void IncreaseCurr(int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
             conn.Open();
             string query =
                 "UPDATE Queue SET CurrentQueue = CurrentQueue + 1 WHERE BusinessId = '" + businessID + "'";
@@ -40,6 +45,8 @@ namespace WebAppWN
         }
         public int getCurr(int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
+
             conn.Open();
             string query =
                 "SELECT CurrentQueue FROM Queue WHERE BusinessId = '" + businessID + "'"; 	
@@ -52,22 +59,26 @@ namespace WebAppWN
             conn.Close();
             return curr;
         }
-        public void resetCurr()
+        public void resetCurr(int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
+
             conn.Open();
             string query =
-                "UPDATE Queue SET CurrentQueue = 0 WHERE BusinessId = '" + LoginPage.businessID + "'"; 
+                "UPDATE Queue SET CurrentQueue = 0 WHERE BusinessId = '" + businessID + "'"; 
             cmd = new MySqlCommand(query, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
         }
 
-        public string getName()
+        public string getName(int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
+
             string toReturn;
             conn.Open();
             string query =
-                "SELECT BusinessName,City,Branch FROM Queue WHERE BusinessId = '" + LoginPage.businessID + "'";
+                "SELECT BusinessName,City,Branch FROM Queue WHERE BusinessId = '" + businessID + "'";
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
             rdr.Read();
@@ -81,12 +92,14 @@ namespace WebAppWN
         }
 
 // Checks If The There Is No One Waiting In Line, If So, Return True 
-        public bool noOneInQueue()
+        public bool noOneInQueue(int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
+
             bool toReturn;
             conn.Open();
             string query =
-                "SELECT CurrentQueue , TotalQueue FROM Queue WHERE BusinessId = '" + LoginPage.businessID + "'";
+                "SELECT CurrentQueue , TotalQueue FROM Queue WHERE BusinessId = '" + businessID + "'";
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
             rdr.Read();
@@ -104,6 +117,8 @@ namespace WebAppWN
 
         public int getTreatedClients(int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
+
             conn.Open();
             string query =
                 "SELECT TreatedClients FROM Queue WHERE BusinessId = '" + businessID + "'";
@@ -119,6 +134,8 @@ namespace WebAppWN
 
         public void IncreaseTreatedClients(int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
+
             conn.Open();
             string query =
                 "UPDATE Queue SET TreatedClients = TreatedClients + 1 WHERE BusinessId = '" + businessID + "'";
@@ -129,6 +146,8 @@ namespace WebAppWN
 
         public TimeSpan getAverageTime(int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
+
             conn.Open();
             string query =
                 "SELECT AverageTime FROM Queue WHERE BusinessId = '" + businessID + "'";
@@ -141,16 +160,16 @@ namespace WebAppWN
             conn.Close();
             return averageTime;
         }
-        public void updateAverage(TimeSpan currentAverage)
+        public void updateAverage(TimeSpan currentAverage, int businessID)
         {
+            while (conn.State != ConnectionState.Closed) ;
+
             conn.Open();
             string query =
-                "UPDATE Queue SET AverageTime = '" + currentAverage + "' WHERE BusinessId = '" + LoginPage.businessID + "'"; 
+                "UPDATE Queue SET AverageTime = '" + currentAverage + "' WHERE BusinessId = '" + businessID + "'"; 
             cmd = new MySqlCommand(query, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
         }
-
-
     }
 }
