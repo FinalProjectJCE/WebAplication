@@ -171,5 +171,23 @@ namespace WebAppWN
             cmd.ExecuteNonQuery();
             conn.Close();
         }
+
+
+        public int getTotalQueue(int businessID)
+        {
+            while (conn.State != ConnectionState.Closed) ;
+            bool toReturn;
+            conn.Open();
+            string query =
+                "SELECT TotalQueue FROM Queue WHERE BusinessId = '" + businessID + "'";
+            cmd = new MySqlCommand(query, conn);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            rdr.Read();
+            int totalQueue = rdr.GetInt32(0);
+
+            rdr.Close();
+            conn.Close();
+            return totalQueue;
+        }
     }
 }

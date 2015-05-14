@@ -38,29 +38,40 @@ namespace WebAppWN
             if (!(new DbDAL().noOneInQueue((int)Session["business"])))
             // There Are Clients Waiting And The Clerck Is Not Giving Any Service
             {
-                if (!(bool)Session["servingClient"])
+                if (!(bool)Session["servingClient"]) // If Not Serving Clients
                 {
-                Session["servingClient"] = true;
-                this.ImageButton1.ImageUrl = "img/StopImgForButton.png";
-                Session["LastLine"]  = new DbDAL().getCurr((int)Session["business"]);
-                new DbDAL().IncreaseCurr((int)Session["business"]);
-                Session["receiveClientTime"] = DateTime.Now;                
-                hasOneInQueue.Text = "";
-                StartAndStopLabel.Text = "סיים טיפול בלקוח";
+                    Session["servingClient"] = true;
+                    this.ImageButton1.ImageUrl = "img/StopImgForButton.png";
+                    Session["LastLine"] = new DbDAL().getCurr((int)Session["business"]);
+                    new DbDAL().IncreaseCurr((int)Session["business"]);
+                    Session["receiveClientTime"] = DateTime.Now;
+                    hasOneInQueue.Text = "";
+                    StartAndStopLabel.Text = "סיים טיפול בלקוח";
                 }
                 else
                 {
-                    AverageCalculate ac = new AverageCalculate();
-                    Session["releaseClientTime"] = DateTime.Now;
-                    ac.setTime((DateTime)Session["receiveClientTime"], (DateTime)Session["releaseClientTime"], (int)Session["business"]);
-                    this.ImageButton1.ImageUrl = "img/ArrowButtonImg.png";
-                    int getCurrLine = new DbDAL().getCurr((int)Session["business"]);
-                    QUEUE.Text = getCurrLine.ToString();
-                    //ac.setClientTimes();
-                    setLabels();
-                    Session["servingClient"] = false;
+                    tempF();
                 }
-            }   
+            }
+            else  // If No One Is Waiting In Line But There Is One Getting Service
+            {
+                if ((bool)Session["servingClient"]) // If Serving Clients
+                {
+                    tempF();
+                }                
+            }
+        }
+
+        public void tempF()
+        {
+            AverageCalculate ac = new AverageCalculate();
+            Session["releaseClientTime"] = DateTime.Now;
+            ac.setTime((DateTime)Session["receiveClientTime"], (DateTime)Session["releaseClientTime"], (int)Session["business"]);
+            this.ImageButton1.ImageUrl = "img/ArrowButtonImg.png";
+            int getCurrLine = new DbDAL().getCurr((int)Session["business"]);
+            QUEUE.Text = getCurrLine.ToString();
+            setLabels();
+            Session["servingClient"] = false;     
         }
 
         protected void Button1_Click(object sender, EventArgs e)
