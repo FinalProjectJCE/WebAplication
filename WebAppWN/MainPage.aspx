@@ -19,7 +19,6 @@
                 //redirected
                 clicked = false;
             }
-            console.log("XXX");
         }
         function bodyUnload() {
             if (clicked == false)//browser is closed  
@@ -28,7 +27,6 @@
                 request.open("POST", "../LogOut.aspx", false);
                 request.send();
             }
-            console.log("ZZZ");
         }
 
         function GetRequest() {
@@ -39,7 +37,6 @@
             else {// code for IE6, IE5
                 xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            console.log("CCC");
             return xmlhttp;
         }
 
@@ -49,6 +46,8 @@
 
 </head>
 <body onunload="bodyUnload();" Onclick="clicked=true;" style="background-image:url(img/background.jpg); background-size:cover;">
+   <asp:Label runat="server" Visible="true" ID="DELER" Text="Haliji" ForeColor="Black" font-size ="50pt"></asp:Label>
+
 
     <form id="form1" runat="server">
        <asp:ScriptManager ID="ScriptManager1" runat="server" />
