@@ -14,7 +14,10 @@ namespace WebAppWN
         public int businessID;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if((Session["business"]!=null))
+            {
+                Response.Redirect("MainPage.aspx",false);
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -47,5 +50,9 @@ namespace WebAppWN
                     Response.Redirect("MainPage.aspx",false);
             }
         }
+
+
     }
+
+
 }

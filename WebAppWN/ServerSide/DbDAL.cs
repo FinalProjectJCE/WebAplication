@@ -49,12 +49,12 @@ namespace WebAppWN
 
             conn.Open();
             string query =
-                "SELECT CurrentQueue FROM Queue WHERE BusinessId = '" + businessID + "'"; 	
-            
+                "SELECT CurrentQueue FROM Queue WHERE BusinessId = '" + businessID + "'";
+            int curr=0;
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
-            rdr.Read();
-            int curr = rdr.GetInt32(0);
+            if(rdr.Read())
+                curr = rdr.GetInt32(0);
             rdr.Close();
             conn.Close();
             return curr;

@@ -49,5 +49,15 @@ namespace WebAppWN.ServerSide
             return businessId;
         }
 
+        public void setNumberOfClerk(int businessID,int numOfClerks) 
+        {
+            conn.Open();
+            string query =
+                "UPDATE Queue SET NumberOfClerks  = '" + numOfClerks + "' WHERE BusinessId = '" + businessID + "'";
+            cmd = new MySqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
     }
 }
