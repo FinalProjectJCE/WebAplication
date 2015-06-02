@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="css/mainPage.css" />
 
     <script type="text/javascript">
-
+        
         var clicked = false;
+        
         function CheckBrowser() {
             if (clicked == false) {
                 //Browser closed   
@@ -18,6 +19,7 @@
                 //redirected
                 clicked = false;
             }
+            console.log("XXX");
         }
         function bodyUnload() {
             if (clicked == false)//browser is closed  
@@ -26,6 +28,7 @@
                 request.open("POST", "../LogOut.aspx", false);
                 request.send();
             }
+            console.log("ZZZ");
         }
 
         function GetRequest() {
@@ -36,6 +39,7 @@
             else {// code for IE6, IE5
                 xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
+            console.log("CCC");
             return xmlhttp;
         }
 

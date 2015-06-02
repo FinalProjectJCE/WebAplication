@@ -38,7 +38,7 @@ namespace WebAppWN
                     ErrorLabel.Visible = true;
                 }
                 else
-                    Response.Write(businessID);
+                    //Response.Write(businessID);
                     //Session["business"]= businessID;
                     Session.Add("business", businessID);
                     Session["servingClient"] = false;
@@ -46,7 +46,6 @@ namespace WebAppWN
                     Session["Average"] = ac;
                     HttpContext.Current.Session["ac"] = ac;
                     System.Diagnostics.Debug.WriteLine(Session.SessionID);
-
                     Response.Redirect("MainPage.aspx",false);
             }
         }

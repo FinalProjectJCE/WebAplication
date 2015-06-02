@@ -16,6 +16,31 @@ namespace WebAppWN
 {
     public partial class MainPage : System.Web.UI.Page
     {
+        
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session.Count == 0)
+            {
+                Response.Redirect("LoginPage.aspx", false);
+            }
+            else
+            {
+                recountConnectedClerks();
+
+                SessionLabel.Text = new DbDAL().getName((int)Session["business"]);
+
+                if (catchedQueueNum.Text.Equals("0")) // If Not Serving Any Client Always Show The Current Queue Number
+                {
+                    setLabels();
+                }
+                else
+                {
+                    QUEUE.Text = Session["LastLine"].ToString(); // If Serving A Client,, Show His Number
+                    this.ImageButton1.ImageUrl = "img/StopImgForButton.png";
+                    StartAndStopLabel.Text = "סיים טיפול בלקוח";
+                }
+            }
+        }
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
             if (!(new DbDAL().noOneInQueue((int)Session["business"])))
@@ -46,70 +71,15 @@ namespace WebAppWN
         }
         protected void UpdateTimer_Tick(object sender, EventArgs e)
         {
-           if(catchedQueueNum.Text.Equals("0"))
-           {
-               int getCurrLine = new DbDAL().getCurr((int)Session["business"]);
-               QUEUE.Text = getCurrLine.ToString();
-           }
-            
+            if (catchedQueueNum.Text.Equals("0"))
+            {
+                int getCurrLine = new DbDAL().getCurr((int)Session["business"]);
+                QUEUE.Text = getCurrLine.ToString();
+            }
+
 
         }
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Session.Count == 0)
-            {
-                Response.Redirect("LoginPage.aspx", false);
-            }
-            else
-            {
-                recountConnectedClerks();
-
-                SessionLabel.Text = new DbDAL().getName((int)Session["business"]);
-
-                if (catchedQueueNum.Text.Equals("0")) // If Not Serving Any Client Always Show The Current Queue Number
-                {
-                    setLabels();
-                }
-                else
-                {
-                    QUEUE.Text = Session["LastLine"].ToString(); // If Serving A Client,, Show His Number
-                    this.ImageButton1.ImageUrl = "img/StopImgForButton.png";
-                    StartAndStopLabel.Text = "סיים טיפול בלקוח";
-                }
-            }
-        }
-
-        //protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
-        //{
-        //    System.Diagnostics.Debug.WriteLine("On Button Clicked");
-
-        //    if (!(new DbDAL().noOneInQueue((int)Session["business"])))
-        //    // There Are Clients Waiting And The Clerck Is Not Giving Any Service
-        //    {
-        //        if (!(bool)Session["servingClient"]) // If Not Serving Clients
-        //        {
-        //            Session["servingClient"] = true;
-        //            this.ImageButton1.ImageUrl = "img/StopImgForButton.png";
-        //            Session["LastLine"] = new DbDAL().getCurr((int)Session["business"]);
-        //            new DbDAL().IncreaseCurr((int)Session["business"]);
-        //            Session["receiveClientTime"] = DateTime.Now;
-        //            hasOneInQueue.Text = "";
-        //            StartAndStopLabel.Text = "סיים טיפול בלקוח";
-        //        }
-        //        else
-        //        {
-        //            tempF();
-        //        }
-        //    }
-        //    else  // If No One Is Waiting In Line But There Is One Getting Service
-        //    {
-        //        if ((bool)Session["servingClient"]) // If Serving Clients
-        //        {
-        //            tempF();
-        //        }
-        //    }
-        //}
-
+       
         public void tempF()
         {
             AverageCalculate ac = new AverageCalculate();
