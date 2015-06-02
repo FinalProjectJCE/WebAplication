@@ -8,10 +8,43 @@
     <title></title>
     <link rel="stylesheet" href="css/mainPage.css" />
 
+    <script type="text/javascript">
+
+        var clicked = false;
+        function CheckBrowser() {
+            if (clicked == false) {
+                //Browser closed   
+            } else {
+                //redirected
+                clicked = false;
+            }
+        }
+        function bodyUnload() {
+            if (clicked == false)//browser is closed  
+            {
+                var request = GetRequest();
+                request.open("POST", "../LogOut.aspx", false);
+                request.send();
+            }
+        }
+
+        function GetRequest() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            return xmlhttp;
+        }
+
+</script>
+
     
 
 </head>
-<body style="background-image:url(img/background.jpg); background-size:cover;">
+<body onunload="bodyUnload();" Onclick="clicked=true;" style="background-image:url(img/background.jpg); background-size:cover;">
 
     <form id="form1" runat="server">
        <asp:ScriptManager ID="ScriptManager1" runat="server" />

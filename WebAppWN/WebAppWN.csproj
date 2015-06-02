@@ -77,6 +77,7 @@
     <Content Include="img\ArrowButtonImg.png" />
     <Content Include="img\background.jpg" />
     <Content Include="img\StopImgForButton.png" />
+    <Content Include="LogOut.aspx" />
     <Content Include="MainPage.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -99,6 +100,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AverageCalculate.cs" />
+    <Compile Include="LogOut.aspx.cs">
+      <DependentUpon>LogOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogOut.aspx.designer.cs">
+      <DependentUpon>LogOut.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ServerSide\DatabaseConstants.cs" />
     <Compile Include="ServerSide\DbDAL.cs">
       <SubType>ASPXCodeBehind</SubType>
