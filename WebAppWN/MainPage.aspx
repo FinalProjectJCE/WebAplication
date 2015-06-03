@@ -42,10 +42,17 @@
 
 </script>
 
+    <script language="JavaScript">
+        window.onbeforeunload = confirmExit;
+        function confirmExit() {
+            return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+        }
+</script>
+
     
 
 </head>
-<body onunload="bodyUnload();" Onclick="clicked=true;" style="background-image:url(img/background.jpg); background-size:cover;">
+<body onunload="bodyUnload();" onclick="clicked=true;" style="background-image:url(img/background.jpg); background-size:cover;">
    <asp:Label runat="server" Visible="true" ID="DELER" Text="Haliji" ForeColor="Black" font-size ="50pt"></asp:Label>
 
 

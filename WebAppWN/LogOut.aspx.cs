@@ -11,6 +11,8 @@ namespace WebAppWN
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            new DbDAL().IncreaseCurr((int)Session["business"]);    
             Session.Clear();
 
         }
