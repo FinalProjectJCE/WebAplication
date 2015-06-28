@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebAppWN.ServerSide;
+
 
 namespace WebAppWN
 {
@@ -21,9 +23,9 @@ namespace WebAppWN
         public void setAvarage() 
         {
             TimeSpan currentQueueAverage = releaseClientTime.Subtract(receiveClientTime); // The Time Took For This Line
-            int treatedClients = new WebAppWN.DbDAL().getTreatedClients(bussinesID); // The Treated Clients
+            int treatedClients = new DbBL().getTreatedClients(bussinesID); // The Treated Clients
             System.Diagnostics.Debug.WriteLine("Treated Clients = " + treatedClients);
-            TimeSpan averageFromDB = new WebAppWN.DbDAL().getAverageTime(bussinesID); // The Average Time From DB
+            TimeSpan averageFromDB = new DbBL().getAverageTime(bussinesID); // The Average Time From DB
             System.Diagnostics.Debug.WriteLine("Average From DB IS: Hours = " + averageFromDB.Hours);
             System.Diagnostics.Debug.WriteLine("Average From DB IS: Minutes = " + averageFromDB.Minutes);
             System.Diagnostics.Debug.WriteLine("Average From DB IS: Seconds = " + averageFromDB.Seconds);
@@ -33,9 +35,9 @@ namespace WebAppWN
             System.Diagnostics.Debug.WriteLine("Average From DB After Multiply: Seconds = " + totalAverage.Seconds);
             totalAverage = totalAverage.Add(currentQueueAverage);
             totalAverage = TimeSpan.FromTicks(totalAverage.Ticks / (treatedClients + 1));
-            new WebAppWN.DbDAL().updateAverage(totalAverage, bussinesID); // Update The Average On DB
+            new DbBL().updateAverage(totalAverage, bussinesID); // Update The Average On DB
             System.Diagnostics.Debug.WriteLine("Division By Num Of Clients= " + totalAverage);
-            new WebAppWN.DbDAL().IncreaseTreatedClients(bussinesID); // Increase Treated Clients On DB
+            new DbBL().IncreaseTreatedClients(bussinesID); // Increase Treated Clients On DB
         }
 
     }

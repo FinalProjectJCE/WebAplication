@@ -44,6 +44,8 @@ namespace WebAppWN.ServerSide
                 else
                     businessId = 0;              
             }
+            System.Diagnostics.Debug.WriteLine("The Business Id Is From Dal " + businessId);
+
             rdr.Close();
             conn.Close();  
             return businessId;

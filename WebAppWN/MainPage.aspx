@@ -45,7 +45,7 @@
     <script language="JavaScript">
         window.onbeforeunload = confirmExit;
         function confirmExit() {
-            return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+            return "האם הנך בטוח שברצונך להתנתק?";
         }
 </script>
 
@@ -53,17 +53,18 @@
 
 </head>
 <body onunload="bodyUnload();" onclick="clicked=true;" style="background-image:url(img/background.jpg); background-size:cover;">
-   <asp:Label runat="server" Visible="true" ID="DELER" Text="Haliji" ForeColor="Black" font-size ="50pt"></asp:Label>
-
 
     <form id="form1" runat="server">
        <asp:ScriptManager ID="ScriptManager1" runat="server" />
         <asp:Timer runat="server" id="UpdateTimer" interval="2000" ontick="UpdateTimer_Tick" />
+        <asp:Timer runat="server" id="Timer1" interval="2000" ontick="TTT" />
+
         <asp:UpdatePanel runat="server" id="TimedPanel" updatemode="Conditional">
             
             <Triggers>
                 <asp:AsyncPostBackTrigger controlid="UpdateTimer" eventname="Tick" />
                 <asp:AsyncPostBackTrigger controlid="ImageButton1" eventname="Click" />
+                <asp:AsyncPostBackTrigger controlid="Timer1" eventname="Tick" />
 
             </Triggers>
 
@@ -84,7 +85,7 @@
                <br />
 
                  לחץ על הכתפור על מנת לקדם תור</div>
-               <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+               <asp:Button ID="Button1" runat="server" font-size ="15pt" OnClick="Restart_Click" Text="סוף יום עבודה" Height="49px" OnClientClick="return confirm('האם אתה בטוח שברצונך לאפס את נתוני התור?');"/>
                 <asp:Label runat="server" ID="catchedQueueNum" Text="0" Visible="false" ></asp:Label>
                 </ContentTemplate>
         </asp:UpdatePanel>

@@ -108,6 +108,7 @@
       <DependentUpon>LogOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="ServerSide\DatabaseConstants.cs" />
+    <Compile Include="ServerSide\DbBL.cs" />
     <Compile Include="ServerSide\DbDAL.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -119,6 +120,7 @@
       <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerSide\UsersBL.cs" />
     <Compile Include="ServerSide\UsersDAL.cs" />
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>

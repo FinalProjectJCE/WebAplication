@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -29,24 +30,32 @@ namespace WebAppWN
             }
             else
             {
-
-                UsersDAL ud = new UsersDAL();
-                    businessID = ud.GetBusinessID(userNameLogin.Text, passwordLogin.Text);
-                if (businessID == 0) // Wrong User Name Or ID
+                if (userNameLogin.Text.All(char.IsLetterOrDigit) && passwordLogin.Text.All(char.IsLetterOrDigit))
                 {
-                    ErrorLabel.Text = "שם משתמש או ססמא לא נכונים";
-                    ErrorLabel.Visible = true;
+                    UsersBL ud = new UsersBL();
+                    businessID = ud.GetBusinessID(userNameLogin.Text, passwordLogin.Text);
+                    if (businessID == 0) // Wrong User Name Or ID
+                    {
+
+                        ErrorLabel.Text = "שם משתמש או ססמא לא נכונים";
+                        ErrorLabel.Visible = true;
+                    }
+                    else
+                    {
+                        Session.Add("business", businessID);
+                        Session["servingClient"] = false;
+                        AverageCalculate ac = new AverageCalculate();
+                        Session["Average"] = ac;
+                        HttpContext.Current.Session["ac"] = ac;
+                        System.Diagnostics.Debug.WriteLine(Session.SessionID);
+                        Response.Redirect("MainPage.aspx", false);
+                    }
                 }
                 else
-                    //Response.Write(businessID);
-                    //Session["business"]= businessID;
-                    Session.Add("business", businessID);
-                    Session["servingClient"] = false;
-                    AverageCalculate ac = new AverageCalculate();
-                    Session["Average"] = ac;
-                    HttpContext.Current.Session["ac"] = ac;
-                    System.Diagnostics.Debug.WriteLine(Session.SessionID);
-                    Response.Redirect("MainPage.aspx",false);
+                {
+                    ErrorLabel.Text = "לא חוקי - נא לא להזין אך ורק מספרים ואותיות";
+                    ErrorLabel.Visible = true;
+                }
             }
         }
 

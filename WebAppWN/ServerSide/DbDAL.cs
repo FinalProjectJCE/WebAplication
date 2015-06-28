@@ -65,7 +65,7 @@ namespace WebAppWN
 
             conn.Open();
             string query =
-                "UPDATE Queue SET CurrentQueue = 0 WHERE BusinessId = '" + businessID + "'"; 
+                "UPDATE Queue SET CurrentQueue = 1 , TotalQueue = 0 , AverageTime = '00:00:00' , TreatedClients = 0 WHERE BusinessId = '" + businessID + "'"; 
             cmd = new MySqlCommand(query, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
