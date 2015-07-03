@@ -120,6 +120,7 @@
       <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringConstant.cs" />
     <Compile Include="ServerSide\UsersBL.cs" />
     <Compile Include="ServerSide\UsersDAL.cs" />
     <Compile Include="LoginPage.aspx.cs">

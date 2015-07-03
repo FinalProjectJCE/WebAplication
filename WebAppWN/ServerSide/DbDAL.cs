@@ -8,6 +8,9 @@ using WebAppWN.ServerSide;
 
 namespace WebAppWN
 {
+    /*
+     * This Class Is The Data Access Layer For The Queue.
+     */
     public class DbDAL:MainPage
     {
         private MySqlConnection conn = null;
@@ -15,14 +18,16 @@ namespace WebAppWN
         private MySqlCommand cmd = null;
         private DatabaseConstants dbc;
 
+        /*
+         * The Constructor Thats Sets The Connction.
+         */
         public DbDAL()
         {
-            //dbc = new DatabaseConstants();
             sb = new MySqlConnectionStringBuilder();
-            sb.Server = "f37fa280-507d-4166-b70e-a427013f0c94.mysql.sequelizer.com";
-            sb.UserID = "lewtprebbcrycgkb";
-            sb.Password = "S5zS2ExvQqZQrUK8dwSJvpv5dSvED4RwmijLrG55TEesXBTrAR3QDXPCGDPijZZU";
-            sb.Database = "dbf37fa280507d4166b70ea427013f0c94";
+            sb.Password = DatabaseConstants.PASSWORD;
+            sb.Database=DatabaseConstants.DATABASE;
+            sb.Server=DatabaseConstants.SERVER;
+            sb.UserID=DatabaseConstants.USER_ID;
             try
             {
                 conn = new MySqlConnection(sb.ToString());
@@ -32,7 +37,10 @@ namespace WebAppWN
                 Console.WriteLine("Error: {0}", e.ToString());
             }
         }
-        
+
+        /*
+         * This Method Increase The Current Queue In The Business By 1;
+         */
         public void IncreaseCurr(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -43,6 +51,10 @@ namespace WebAppWN
             cmd.ExecuteNonQuery();
             conn.Close();
         }
+
+        /*
+         * This Method Returns The Current Queue In The Business.
+         */
         public int getCurr(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -59,6 +71,10 @@ namespace WebAppWN
             conn.Close();
             return curr;
         }
+
+        /*
+         * This Method Resets The Queue Data In The Business.
+         */
         public void resetCurr(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -71,6 +87,9 @@ namespace WebAppWN
             conn.Close();
         }
 
+        /*
+         * This Method Returns The Name Of The Business.
+         */
         public string getName(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -91,7 +110,10 @@ namespace WebAppWN
             return toReturn;
         }
 
-// Checks If The There Is No One Waiting In Line, If So, Return True 
+
+        /*
+         * This Method Check If There Are Clients Waiting For Service
+         */
         public bool noOneInQueue(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -115,6 +137,9 @@ namespace WebAppWN
             return toReturn ;
         }
 
+        /*
+         * This Method Returns The Number Clients That Has Been Treated.
+         */
         public int getTreatedClients(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -132,6 +157,9 @@ namespace WebAppWN
             return treatedClients;
         }
 
+        /*
+         * This Method Increases The Treated Clients Of The Business.
+         */
         public void IncreaseTreatedClients(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -144,6 +172,9 @@ namespace WebAppWN
             conn.Close();
         }
 
+        /*
+         * This Method Returns The Average Time Of A Queue In The Business.
+         */
         public TimeSpan getAverageTime(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -151,7 +182,6 @@ namespace WebAppWN
             conn.Open();
             string query =
                 "SELECT AverageTime FROM Queue WHERE BusinessId = '" + businessID + "'";
-
             cmd = new MySqlCommand(query, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
             rdr.Read();
@@ -160,6 +190,10 @@ namespace WebAppWN
             conn.Close();
             return averageTime;
         }
+
+        /*
+         * This Method Updates The Average Time Of A Queue In The Business.
+         */
         public void updateAverage(TimeSpan currentAverage, int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;
@@ -172,7 +206,9 @@ namespace WebAppWN
             conn.Close();
         }
 
-
+        /*
+         * This Method Returns The Number Of All The Clients That Had Take A Line
+         */
         public int getTotalQueue(int businessID)
         {
             while (conn.State != ConnectionState.Closed) ;

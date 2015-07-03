@@ -71,9 +71,9 @@
             <ContentTemplate>
                <div id="displayText">
                <br />
-               <asp:Label runat="server" Visible="true" ID="SessionLabel" Text="Haliji" ForeColor="Black" font-size ="50pt"></asp:Label>
+               <asp:Label runat="server" Visible="true" ID="BusinessNameLabel" Text="Business Name" ForeColor="Black" font-size ="50pt"></asp:Label>
                <h1> : לקוח מספר</h1>
-               <asp:Label runat="server" Visible="true" ID="QUEUE" Text="" ForeColor="Black" font-size ="60pt"></asp:Label>
+               <asp:Label runat="server" Visible="true" ID="QueueNumberLabel" Text="" ForeColor="Black" font-size ="60pt"></asp:Label>
                <br />
                <br />
                <br />
@@ -84,9 +84,9 @@
                <asp:Label runat="server" Visible="true" ID="StartAndStopLabel" Text="" ForeColor="Red"></asp:Label>
                <br />
 
-                 לחץ על הכתפור על מנת לקדם תור</div>
+                 לחץ על הכתפור על מנת להתחיל או לסיים טיפול בלקוח</div>
                <asp:Button ID="Button1" runat="server" font-size ="15pt" OnClick="Restart_Click" Text="סוף יום עבודה" Height="49px" OnClientClick="return confirm('האם אתה בטוח שברצונך לאפס את נתוני התור?');"/>
-                <asp:Label runat="server" ID="catchedQueueNum" Text="0" Visible="false" ></asp:Label>
+                <asp:Label runat="server" ID="ServingClients" Text="false" Visible="false" ></asp:Label>
                 </ContentTemplate>
         </asp:UpdatePanel>
     </form>

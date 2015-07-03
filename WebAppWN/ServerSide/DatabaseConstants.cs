@@ -7,6 +7,10 @@ using System.Web;
 
 namespace WebAppWN.ServerSide
 {
+    /*
+       This Class Is For The Database Constance Fields
+       That Uses For Connection To The Database.    
+    */
     public class DatabaseConstants
     {
         public const string SERVER = "f37fa280-507d-4166-b70e-a427013f0c94.mysql.sequelizer.com";

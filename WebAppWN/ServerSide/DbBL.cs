@@ -6,9 +6,13 @@ using WebAppWN.ServerSide;
 
 namespace WebAppWN.ServerSide
 {
+    /*
+     * This Class Is The Business Logic Layer For The Queue.
+     */
     public class DbBL
     {
         DbDAL dbDal = new DbDAL();
+
 
         public void IncreaseCurr(int businessID)
         {

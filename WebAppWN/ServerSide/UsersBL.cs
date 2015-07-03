@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using WebAppWN.ServerSide;
 
+/*
+ * This Class Is The Business Logic Layer For The Users Data.
+ */
+
 namespace WebAppWN.ServerSide
 {
     public class UsersBL

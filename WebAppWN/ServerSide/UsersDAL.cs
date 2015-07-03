@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+/*
+ * This Class Is The Data Access Layer For The Users.
+ */
+
 namespace WebAppWN.ServerSide
 {
     public class UsersDAL
@@ -11,14 +15,18 @@ namespace WebAppWN.ServerSide
         private MySqlConnection conn = null;
         private MySqlConnectionStringBuilder sb = null;
         private MySqlCommand cmd = null;
+
+        /*
+         * The Constructor Thats Sets The Connction.
+         */
         public UsersDAL()
         {
             
             sb = new MySqlConnectionStringBuilder();
-            sb.Server = "f37fa280-507d-4166-b70e-a427013f0c94.mysql.sequelizer.com";
-            sb.UserID = "lewtprebbcrycgkb";
-            sb.Password = "S5zS2ExvQqZQrUK8dwSJvpv5dSvED4RwmijLrG55TEesXBTrAR3QDXPCGDPijZZU";
-            sb.Database = "dbf37fa280507d4166b70ea427013f0c94";
+            sb.Password = DatabaseConstants.PASSWORD;
+            sb.Database = DatabaseConstants.DATABASE;
+            sb.Server = DatabaseConstants.SERVER;
+            sb.UserID = DatabaseConstants.USER_ID;
             try
             {
                 conn = new MySqlConnection(sb.ToString());
@@ -28,7 +36,11 @@ namespace WebAppWN.ServerSide
                 Console.WriteLine("Error: {0}", e.ToString());
             }
         }
-        public int GetBusinessID(string userName, string userPassword) // Return User Full Name If Exists
+
+        /*
+         * This Method Returns The Business Uniqe Id If Exist, By The Users "UserName" And "Password"
+         */
+        public int GetBusinessID(string userName, string userPassword) 
         {
             int businessId=0;
             conn.Open();
@@ -44,13 +56,14 @@ namespace WebAppWN.ServerSide
                 else
                     businessId = 0;              
             }
-            System.Diagnostics.Debug.WriteLine("The Business Id Is From Dal " + businessId);
-
             rdr.Close();
             conn.Close();  
             return businessId;
         }
 
+        /*
+         * This Method Sets The Number Of Clerks In The Business.
+         */
         public void setNumberOfClerk(int businessID,int numOfClerks) 
         {
             conn.Open();

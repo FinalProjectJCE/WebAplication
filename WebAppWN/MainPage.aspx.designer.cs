@@ -58,22 +58,22 @@ namespace WebAppWN {
         protected global::System.Web.UI.UpdatePanel TimedPanel;
         
         /// <summary>
-        /// SessionLabel control.
+        /// BusinessNameLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SessionLabel;
+        protected global::System.Web.UI.WebControls.Label BusinessNameLabel;
         
         /// <summary>
-        /// QUEUE control.
+        /// QueueNumberLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label QUEUE;
+        protected global::System.Web.UI.WebControls.Label QueueNumberLabel;
         
         /// <summary>
         /// ImageButton1 control.
@@ -112,12 +112,12 @@ namespace WebAppWN {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// catchedQueueNum control.
+        /// ServingClients control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label catchedQueueNum;
+        protected global::System.Web.UI.WebControls.Label ServingClients;
     }
 }

@@ -29,7 +29,7 @@
                             <asp:TextBox runat="server" CssClass="login-field" TextMode="Password" ID="passwordLogin"></asp:TextBox>
                             <label class="login-field-icon fui-lock" for="login-pass"></label>
                         </div>
-                        <asp:LinkButton CssClass="btn btn-primary btn-large btn-block" runat="server" OnClick="Button1_Click" ID="loginButton">התחבר</asp:LinkButton>
+                        <asp:LinkButton CssClass="btn btn-primary btn-large btn-block" runat="server" OnClick="loginButtonClick" ID="loginButton">התחבר</asp:LinkButton>
                        
                     </div>
                     <div style="text-align:center">
