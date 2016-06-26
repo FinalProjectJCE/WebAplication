@@ -29,7 +29,7 @@ namespace WebAppWN
             }
             else // If The User Has Loged In
             {
-                recountConnectedClerks(); // This Will Count The Connected Clerks
+                //recountConnectedClerks(); // This Will Count The Connected Clerks
                 BusinessNameLabel.Text = new DbBL().getName((int)Session["business"]);
 
                 if (ServingClients.Text.Equals(StringConstant.NOT)) // If Not Serving Any Client Always Show The Current Queue Number
